@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Bageriet.Models;
+using Bageriet.Models.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,7 +14,10 @@ namespace Bageriet.Controllers
         // GET: Product
         public ActionResult Index()
         {
-            return View();
+            var context = new ProductsContext();
+            var ProductViewModel = new ProductsViewModel();
+            ProductViewModel.Products = context.Products;
+            return View(ProductViewModel);
         }
 
         // GET: Product/Details/5

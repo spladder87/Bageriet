@@ -9,7 +9,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
-using Bageriet.Data;
 
 namespace Bageriet
 {
@@ -27,8 +26,6 @@ namespace Bageriet
         {
             services.AddControllersWithViews();
 
-            services.AddDbContext<BagerietContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("BagerietContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

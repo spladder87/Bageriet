@@ -3,16 +3,16 @@
     ViewData["Title"] = "Products";
 }
 
-
-@{
-    foreach (var item in Model.Products)
-    {
-        <p> @item.Name</p>
-
-    }
-}
-
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>This is the product page</a>.</p>
+    <h1 class="display-4">Products for sale</h1>
+    <div class="text-left">
+        <ul>
+            @{
+                foreach (var product in Model.Products)
+                {
+                    <li>@product.Name</li>
+                }
+            }
+        </ul>
+    </div>
 </div>

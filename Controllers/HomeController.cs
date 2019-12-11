@@ -23,12 +23,7 @@ namespace Bageriet.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        public IActionResult About()
+        public IActionResult Contact()
         {
             return View();
         }

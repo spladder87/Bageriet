@@ -3,96 +3,32 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Bageriet.Models;
-using Bageriet.Models.ViewModels;
-using Microsoft.AspNetCore.Http;
+using Bageriet.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+
+// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Bageriet.Controllers
 {
     public class ProductController : Controller
     {
-        // GET: Product
-        public ActionResult Index()
+        private readonly IProductRepository _productRepository;
+        private readonly ICategoryRepository _categoryRepository;
+
+        public ProductController(IProductRepository productRepository, ICategoryRepository categoryRepository)
         {
-            var context = new ProductsContext();
-            var ProductViewModel = new ProductsViewModel();
-            ProductViewModel.Products = context.Products;
-            return View(ProductViewModel);
+            _productRepository = productRepository;
+            _categoryRepository = categoryRepository;
         }
 
-        // GET: Product/Details/5
-        public ActionResult Details(int id)
+        // GET: /<controller>/
+        public IActionResult List()
         {
-            return View();
-        }
+            ProductsListViewModel productListViewModel = new ProductsListViewModel();
+            productListViewModel.Pies = _productRepository.AllPies;
 
-        // GET: Product/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Product/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Product/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: Product/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Product/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Product/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            productListViewModel.CurrentCategory = "Cheese cakes";
+            return View(productListViewModel);
         }
     }
 }
